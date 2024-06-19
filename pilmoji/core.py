@@ -208,6 +208,7 @@ class Pilmoji:
         self,
         xy: Tuple[int, int],
         text: str,
+        max_width: int = None,
         fill: ColorT = None,
         font: FontT = None,
         anchor: str = None,
@@ -305,7 +306,6 @@ class Pilmoji:
         # I change a part of the logic of text writing because it couldn't work "the same as PIL" if I didn't
         nodes_line_to_print = []
         widths = []
-        max_width = 0
         streams = {}
         mode = self.draw.fontmode
         if stroke_width == 0 and embedded_color:
@@ -349,7 +349,7 @@ class Pilmoji:
                 text_line, font, direction=direction, features=features, language=language
             )
             widths.append(line_width)
-            max_width = max(max_width, line_width)
+            max_width = max_width or line_width
 
         # taking into acount the anchor to place the text in the right place
         if anchor[1] == "m":
